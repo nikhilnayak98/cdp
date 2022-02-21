@@ -1,0 +1,12 @@
+ip addr add 172.58.172.2/22 dev eth0
+ip link set up dev eth0
+
+ip addr add 10.1.0.1/24 dev eth1
+ip link set up dev eth1
+
+ip route add default via 172.58.172.1
+
+
+# NATing out packets to internet
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to 172.58.172.2
+

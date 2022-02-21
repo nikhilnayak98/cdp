@@ -1,0 +1,28 @@
+# EDMZNET
+ip link set dev eth0 address b0:bb:bb:bb:bb:bb
+ip addr add 192.168.80.3/20 dev eth0
+ip link set up dev eth0
+
+ip route add default via 192.168.80.1
+
+# MACSEC
+# Create macsec interface on top of eth0
+ip link add link eth0 macsec0 type macsec encrypt on
+
+# Transmit SA and keys
+ip macsec add macsec0 tx sa 0 pn 100 on key 03 46162cc88baa81fb629f003332efb43d
+
+# Create receive channel and SA, port number, packet number and key
+ip macsec add macsec0 rx address 50:00:ee:11:11:11 port 1
+ip macsec add macsec0 rx address 50:00:ee:11:11:11 port 1 sa 0 pn 100 on key 01 ae99a457ecd76e41696e8ba5c4a245fc
+
+# MACSEC interface
+ip addr add 192.168.10.3/20 dev macsec0
+ip link set dev macsec0 up
+
+# Force traffic through macsec0 interface for 192.168.80.0/20 traffic 
+ip route del 192.168.80.0/20
+ip route add 192.168.80.0/20 dev macsec0
+
+systemctl enable wg-quick@wg0.service
+systemctl start wg-quick@wg0.service

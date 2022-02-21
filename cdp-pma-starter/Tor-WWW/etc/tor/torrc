@@ -1,0 +1,26 @@
+TestingTorNetwork 1
+DataDirectory /var/lib/tor
+HiddenServiceDir /var/lib/tor/hidden_service/
+HiddenServicePort 80 127.0.0.1:80
+RunAsDaemon 1
+ConnLimit 60
+ShutdownWaitLength 0
+PidFile /var/lib/tor/pid
+Log notice file /var/log/tor/notice.log
+Log info file /var/log/tor/info.log
+Log debug file /var/log/tor/debug.log
+ProtocolWarnings 1
+SafeLogging 0
+DisableDebuggerAttachment 0
+DirAuthority TorDA orport=5000 no-v2 hs v3ident=F925CBBBD9A2D71B4B50B0F00EA46B2077C90209 5.151.132.2:7000 409C21F7BE21B2BDF371B6147701872FC401664B
+SocksPort 0
+OrPort 5000
+ControlPort 9051
+AssumeReachable 1
+PathsNeededToBuildCircuits 0.25
+TestingDirAuthVoteExit *
+TestingDirAuthVoteHSDir *
+V3AuthNIntervalsValid 2
+TestingDirAuthVoteGuard *
+TestingMinExitFlagThreshold 0
+Sandbox 1

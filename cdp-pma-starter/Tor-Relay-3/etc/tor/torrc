@@ -1,0 +1,38 @@
+TestingTorNetwork 1
+Nickname TorRelay3
+Address 33.33.33.2
+DataDirectory /var/lib/tor
+RunAsDaemon 1
+ConnLimit 60
+
+# Usual debugging stuff not required during PMA demo (remove this from viva)
+PidFile /var/lib/tor/pid
+Log notice file /var/log/tor/notice.log
+Log info file /var/log/tor/info.log
+Log debug file /var/log/tor/debug.log
+ProtocolWarnings 1
+SafeLogging 0
+DisableDebuggerAttachment 0
+
+# Config tor directory authority server
+DirAuthority TorDA orport=5000 no-v2 hs v3ident=F925CBBBD9A2D71B4B50B0F00EA46B2077C90209 5.151.132.2:7000 409C21F7BE21B2BDF371B6147701872FC401664B
+SocksPort 0
+OrPort 5000
+
+# For nyx
+ControlPort 9051
+
+# Can be used as a relay as well as exit node
+ExitPolicy accept *:*
+
+# This typically launches a working minimal Tor network in 6s-10s, makes tor networks bootstrap fast.
+# Can cause consensus instability and network unreliability, (Citation: https://github.com/antitree/private-tor-network/blob/master/config/torrc)
+PathsNeededToBuildCircuits 0.25
+TestingDirAuthVoteExit *
+TestingDirAuthVoteHSDir *
+V3AuthNIntervalsValid 2
+TestingDirAuthVoteGuard *
+TestingMinExitFlagThreshold 0
+
+# Test network
+Sandbox 1

@@ -1,0 +1,54 @@
+# OFFICECONN
+ip addr add 213.0.133.165/27 dev eth0
+ip link set up dev eth0
+
+# IP Aliasing for GW1, GW2 and Web Server
+ip addr add 213.0.133.162/27 dev eth0
+ip link set up dev eth0
+ip addr add 213.0.133.163/27 dev eth0
+ip link set up dev eth0
+ip addr add 213.0.133.164/27 dev eth0
+ip link set up dev eth0
+
+# EDMZNET
+ip link set dev eth1 address 50:00:ee:11:11:11
+ip addr add 192.168.80.1/20 dev eth1
+ip link set up dev eth1
+
+ip route add default via 213.0.133.161
+
+# MACSEC
+# Create macsec interface on top of eth1 with encrypt on and replay on (for receiving packets in the same order)
+ip link add link eth1 macsec0 type macsec encrypt on replay on window 128
+
+# Transmit SA and keys
+ip macsec add macsec0 tx sa 0 pn 100 on key 01 ae99a457ecd76e41696e8ba5c4a245fc
+
+# Create receive channel and SA, port number, packet number and key
+ip macsec add macsec0 rx address a0:aa:aa:aa:aa:aa port 1
+ip macsec add macsec0 rx address a0:aa:aa:aa:aa:aa port 1 sa 0 pn 100 on key 02 6953f4695ec44cf778797112dbdbacc7
+ip macsec add macsec0 rx address b0:bb:bb:bb:bb:bb port 1
+ip macsec add macsec0 rx address b0:bb:bb:bb:bb:bb port 1 sa 0 pn 100 on key 03 46162cc88baa81fb629f003332efb43d
+ip macsec add macsec0 rx address c0:cc:cc:cc:cc:cc port 1
+ip macsec add macsec0 rx address c0:cc:cc:cc:cc:cc port 1 sa 0 pn 100 on key 04 adb21e030d882cb8112d0a6eebbfc596
+
+# MACSEC interface
+ip addr add 192.168.10.1/20 dev macsec0
+ip link set dev macsec0 up
+
+# Force traffic through macsec0 interface for 192.168.80.0/20 traffic 
+ip route del 192.168.80.0/20
+ip route add 192.168.80.0/20 dev macsec0
+
+
+# NAT RULES
+# NATing out packets to internet
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to 213.0.133.165
+
+# NATing public IPs to internal addresses
+iptables -t nat -A PREROUTING -d 213.0.133.162 -j DNAT --to-destination 192.168.80.2    # GW1
+iptables -t nat -A PREROUTING -d 213.0.133.163 -j DNAT --to-destination 192.168.80.3    # GW2
+iptables -t nat -A PREROUTING -d 213.0.133.164 -j DNAT --to-destination 192.168.80.4    # WWW
+
+
+# FILTERS

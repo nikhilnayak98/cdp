@@ -1,0 +1,1 @@
+V	240119170421Z		1000	unknown	/C=UK/ST=England/L=Warkwickshire/O=University of Warwick/OU=WMG Cyber Security Centre Web Server/CN=www.u2185920.cyber21.test/emailAddress=server@u2185920.cyber21.test

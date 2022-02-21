@@ -1,0 +1,8 @@
+ip addr add 137.205.1.2/30 dev eth0
+ip link set up dev eth0
+
+ip route add default via 137.205.1.1
+
+update-ca-certificates
+
+systemctl start ipsec.service

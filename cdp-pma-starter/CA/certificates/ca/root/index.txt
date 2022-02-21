@@ -1,0 +1,1 @@
+V	320117170420Z		1000	unknown	/C=UK/ST=England/L=Warkwickshire/O=University of Warwick/OU=WMG Cyber Security Centre Intermediate CA/CN=Intermediate CA/emailAddress=intermediate@u2185920.cyber21.test

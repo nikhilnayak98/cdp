@@ -1,0 +1,33 @@
+# EDMZNET
+ip link set dev eth0 address a0:aa:aa:aa:aa:aa
+ip addr add 192.168.80.2/20 dev eth0
+ip link set up dev eth0
+
+ip addr add 10.8.1.1/24 dev eth1
+ip link set up dev eth1
+
+ip route add default via 192.168.80.1
+
+# MACSEC
+# Create macsec interface on top of eth0 with encrypt on and replay on (for receiving packets in the same order)
+ip link add link eth0 macsec0 type macsec encrypt on replay on window 128
+
+# Transmit SA and keys
+ip macsec add macsec0 tx sa 0 pn 100 on key 02 6953f4695ec44cf778797112dbdbacc7
+
+# Create receive channel and SA, port number, packet number and key
+ip macsec add macsec0 rx address 50:00:ee:11:11:11 port 1
+ip macsec add macsec0 rx address 50:00:ee:11:11:11 port 1 sa 0 pn 100 on key 01 ae99a457ecd76e41696e8ba5c4a245fc
+
+# MACSEC interface
+ip addr add 192.168.10.2/20 dev macsec0
+ip link set dev macsec0 up
+
+# Force traffic through macsec0 interface for 192.168.80.0/20 traffic 
+ip route del 192.168.80.0/20
+ip route add 192.168.80.0/20 dev macsec0
+
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+#iptables -t nat -A POSTROUTING -o macsec0 -j MASQUERADE
+
+systemctl start ipsec.service

@@ -1,0 +1,3 @@
+sysctl -p
+
+./deploy_certificates.sh 

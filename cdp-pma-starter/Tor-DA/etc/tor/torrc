@@ -1,0 +1,50 @@
+TestingTorNetwork 1
+Nickname TorDA
+Address 5.151.132.2
+DataDirectory /var/lib/tor
+RunAsDaemon 1
+ConnLimit 60
+
+# Usual debugging stuff not required during PMA demo (remove this from viva)
+PidFile /var/lib/tor/pid
+Log notice file /var/log/tor/notice.log
+Log info file /var/log/tor/info.log
+Log debug file /var/log/tor/debug.log
+ProtocolWarnings 1
+SafeLogging 0
+DisableDebuggerAttachment 0
+
+# Config itself as directory authority
+DirAuthority TorDA orport=5000 no-v2 hs v3ident=F925CBBBD9A2D71B4B50B0F00EA46B2077C90209 5.151.132.2:7000 409C21F7BE21B2BDF371B6147701872FC401664B
+SocksPort 0
+
+# Required: what port to advertise for incoming Tor connections.
+OrPort 5000
+
+# Open ControlPort for nyx
+ControlPort 9051
+DirPort 7000
+
+# This is a Tor DA so obviously
+AuthoritativeDirectory 1
+V3AuthoritativeDirectory 1
+ContactInfo torda@cyber21.test
+
+# Set exit policy as this is a DA
+ExitPolicy reject *:*
+
+# Speed up consensus cycle so that Tor ius ready to set up fast during viva
+# Available Voting interval (https://www.torproject.org/): 10, 12, 15, 18, 20, 24, 25, 30, 36, 40, 45, 50, 60
+TestingV3AuthInitialVotingInterval 300
+V3AuthVotingInterval 300
+
+# VoteDelay + DistDelay must be less than VotingInterval (https://www.torproject.org/)
+TestingV3AuthInitialVoteDelay 20
+V3AuthVoteDelay 20
+
+TestingV3AuthInitialDistDelay 20
+V3AuthDistDelay 20
+
+# This typically launches a working minimal Tor network in 6s-10s, makes tor networks bootstrap fast.
+# Can cause consensus instability and network unreliability
+AssumeReachable 1
