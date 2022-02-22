@@ -53,7 +53,13 @@ This repo contains workings of netkit 1.1.4 environment for CDP PMA due on 24th 
 ## How to Run Lab
 - <code>cd cdp-pma-starter</code>
 - <code>chmod +x /shared/deploy_certificates.sh start_lab.sh</code>
-- <code>./start_lab</code>
-
-To start Tor
-- <code>./start_lab --tor-only</code>
+- To start entire lab without Tor infrastructure
+- <code>./start_lab.sh</code>
+- To start entire lab with Tor infrastructure
+- <code>./start_lab.sh --with-tor</code>
+- To start Tor infrastructure
+- <code>./start_lab.sh --tor-only</code>
+- To start IPSec infrastructure
+- <code>./start_lab.sh --ipsec</code>
+- To start WireGuard infrastructure
+- <code>./start_lab.sh --wg</code>
