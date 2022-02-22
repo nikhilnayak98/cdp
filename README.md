@@ -21,24 +21,24 @@ This repo contains workings of netkit 1.1.4 environment for CDP PMA due on 24th 
 
 ## Phase 2
 
-- [x] 7. make a compelling case for your scalable design and implementation of the IPSec VPN using the x509 certificate authority hierarchy as appropriate, permitting multiple workers to achieve connectivity.
-- [x] 8. have your submitted public key signed by at least three other submitted public keys.
-- [x] 9. have correctly used the private key associated with the submitted public key, to sign three other submitted public keys.
-- [x] 10. have clean, robust, maintainable, well organised, well commented configuration files throughout.
-- [x] 11. respond successfully to the challenge, encrypted against the public key that you submitted as a deliverable.
+- [x] 10. make a compelling case for your scalable design and implementation of the IPSec VPN using the x509 certificate authority hierarchy as appropriate, permitting multiple workers to achieve connectivity.
+- [x] 11. have your submitted public key signed by at least three other submitted public keys.
+- [x] 12. have correctly used the private key associated with the submitted public key, to sign three other submitted public keys.
+- [x] 13. have clean, robust, maintainable, well organised, well commented configuration files throughout.
+- [x] 14. respond successfully to the challenge, encrypted against the public key that you submitted as a deliverable.
 
 ## Phase 3
 
-- [x] 10. implement several sample mobile workers with successful VPN connectivity to both gateways.
-- [x] 11. make a succinct but compelling evaluation of your VPN configurations.
-- [x] 12. implement a robust HTTPS configuration of the Apache web-server.
-- [x] 13. make a compelling case for your HTTPS implementation.
-- [x] 14. make thoughtful use of sub-keys, key size and key validity periods in your submission.
-- [x] 15. have your signed public key, available on as many of the following keyservers as are functional just prior to the submission deadline:
+- [x] 15. implement several sample mobile workers with successful VPN connectivity to both gateways.
+- [x] 16. make a succinct but compelling evaluation of your VPN configurations.
+- [x] 17. implement a robust HTTPS configuration of the Apache web-server.
+- [x] 18. make a compelling case for your HTTPS implementation.
+- [x] 19. make thoughtful use of sub-keys, key size and key validity periods in your submission.
+- [x] 20. have your signed public key, available on as many of the following keyservers as are functional just prior to the submission deadline:
   - [ ] <code>hkp://pool.sks-keyservers.net</code> [Link](https://sks-keyservers.net/)
   - [x] <code>hkp://keyserver.ubuntu.com</code> [Link](https://keyserver.ubuntu.com/)
   - [x] <code>hkp://keyserver.2ndquadrant.com</code> [Link](https://keyserver.2ndquadrant.com/)
-- [x] 16. demonstrate comprehensive mastery of all aspects of the the submission at all scales (detail through to overall concept). This should be reinforced by at least one additional crypto related feature of your choice.
+- [x] 21. demonstrate comprehensive mastery of all aspects of the the submission at all scales (detail through to overall concept). This should be reinforced by at least one additional crypto related feature of your choice.
 
 ## Augmented Features:
 
@@ -52,5 +52,8 @@ This repo contains workings of netkit 1.1.4 environment for CDP PMA due on 24th 
 
 ## How to Run Lab
 - <code>cd cdp-pma-starter</code>
-- <code>chmod +x /shared/deploy_certificates.sh</code>
-- <code>lstart</code>
+- <code>chmod +x /shared/deploy_certificates.sh start_lab.sh</code>
+- <code>./start_lab</code>
+
+To start Tor
+- <code>./start_lab --tor-only</code>
