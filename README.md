@@ -1,5 +1,6 @@
-# ES94N:Cryptosystems and Data Protection
-This repo contains workings of netkit 1.1.4 environment for CDP PMA due on 24th January.
+# Cryptosystems and Data Protection
+
+A scalable PKI infrastructure with a three tier certificate authority hierarchy with automated certificates generation and deployment. It housed StrongSwan IPSec gateway and a WireGuard VPN gateway. MACSec was configured for LAN-LAN Data Link Layer encryption with replay protection. A DarkNet is set up using an isolated TOR environment with a private TOR directory authority and relays.
 
 ## Network Design
 ![Network Design](https://raw.githubusercontent.com/nikhilnayak98/cdp/main/Network%20Design.png)
